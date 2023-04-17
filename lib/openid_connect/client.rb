@@ -29,7 +29,7 @@ module OpenIDConnect
       token_hash = JSON.parse(response.body).with_indifferent_access
       token_type = (@forced_token_type || token_hash[:token_type]).try(:downcase)
       case token_type
-      when 'bearer'
+      when 'bearer', 'access_token'
         AccessToken.new token_hash.merge(client: self)
       else
         raise Exception.new("Unexpected Token Type: #{token_type}")
